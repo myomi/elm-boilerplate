@@ -41,7 +41,7 @@ init : () -> Url.Url -> Nav.Key -> ( Model, Cmd Msg )
 init flags url key =
     let
         route =
-            Router.urlToRoute url
+            Router.fromUrl url
     in
     goTo url { key = key, page = NotFound }
 
@@ -85,7 +85,7 @@ goTo : Url.Url -> Model -> ( Model, Cmd Msg )
 goTo url model =
     let
         maybeRoute =
-            Router.urlToRoute url
+            Router.fromUrl url
     in
     case maybeRoute of
         Nothing ->

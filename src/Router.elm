@@ -1,7 +1,7 @@
-module Router exposing (Route(..), urlToRoute)
+module Router exposing (Route(..), fromUrl)
 
 import Url
-import Url.Parser exposing (Parser, map, oneOf, parse, s, top)
+import Url.Parser as Parser exposing (Parser, oneOf, s, top)
 
 
 type Route
@@ -12,11 +12,11 @@ type Route
 routeParser : Parser (Route -> a) a
 routeParser =
     oneOf
-        [ map Top top
-        , map Profile (s "profile")
+        [ Parser.map Top top
+        , Parser.map Profile (s "profile")
         ]
 
 
-urlToRoute : Url.Url -> Maybe Route
-urlToRoute url =
-    parse routeParser url
+fromUrl : Url.Url -> Maybe Route
+fromUrl url =
+    Parser.parse routeParser url
